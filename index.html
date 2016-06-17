@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <title>Angular.extjs</title>
+    <link rel="stylesheet" href="resources/default/app.css">
+    <!-- <x-compile> -->
+        <!-- <x-bootstrap> -->
+            <script src="ext/ext-dev.js"></script>
+            <script src="bootstrap.js"></script>
+        <!-- </x-bootstrap> -->
+        <script src="app.js"></script>
+    <!-- </x-compile> -->
+
+    <style>
+        li {
+            display: inline-block;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="angularExtApp"
+         ng-controller="angularExtController">
+
+
+
+        <div id="angularNavbar"
+             style="height: 70px; width: 100%; background-color: indianred"
+             ng-controller="angularNavbarController">
+            <h3>Angular Navbar Div</h3>
+            <br>
+            <ul>
+                <li ng-repeat="item in menuItems track by $index">
+                    <button ng-click="item.action(item.name, item.showExtApp)">
+                        {{ item.name }}
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div id="extApp"
+             style="height: 100%; width: 100%; background-color: darkseagreen">
+            <h3>Ext App Div</h3>
+        </div>
+
+
+
+        <div id="angularApp1"
+             style="border: 2px solid indianred;"
+             ng-controller="angularApp1Controller">
+            <h3>Angular App1 Div</h3>
+            <br>
+            {{ helloFromAngularApp1Controller }}
+            <br><br>
+            <small>
+                AngularApp1 is bootstrapped after Ext is ready. You should see the double-curly brace above until Ext is fully loaded on the page.
+                Then this string will show up!
+            </small>
+        </div>
+
+
+
+    </div>
+
+    <!--angular-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.js"></script>
+    <!--angular custom scripts-->
+    <script src="app.angular.js"></script>
+
+    <script>
+        //manually bootstrap Angular navbar when page gets to this point... we dont need to wait for Ext to load.
+        bootstrapAngularNavbar();
+
+        // Once EXT is ready, bootstrap Angular app
+        Ext.onReady(function () {
+            //http://docs.sencha.com/extjs/4.1.3/#!/api/Ext-method-onReady
+            //http://stackoverflow.com/questions/14601054/ext-onready-vs-document-ready
+            bootstrapAngularApp1();
+        });
+    </script>
+
+</body>
+</html>
